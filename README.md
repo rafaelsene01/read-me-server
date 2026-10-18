@@ -2,15 +2,15 @@
 
 Lista compartilhada de servidores de livros do marketplace da extensão **ReadMe**.
 
-A extensão lê o arquivo [`servers.json`](servers.json) sempre que o navegador abre (e quando é instalada ou atualizada), visita cada servidor da lista e mostra os livros encontrados no marketplace, com o selo **Lista compartilhada**.
+Ninguém precisa adicionar esses servidores à mão: a extensão lê o arquivo [`servers.json`](servers.json) sozinha sempre que o navegador abre, quando é instalada ou atualizada e quando o marketplace é aberto, visita cada servidor da lista e mostra os livros encontrados no marketplace, com o selo **Lista compartilhada**.
 
 Ela lê sempre deste endereço:
 
 ```
-https://raw.githubusercontent.com/rafaelsene01/read-me-server/main/servers.json
+https://raw.githubusercontent.com/rafaelsene01/read-me-server/HEAD/servers.json
 ```
 
-Por isso o arquivo tem que ficar **na raiz**, com **este nome**, na branch **`main`**. Mudar qualquer um dos três exige mudar `SERVER_LIST_URL` em `lib/marketplace.ts` na extensão e publicar uma nova versão.
+`HEAD` é a branch padrão do repositório (hoje `master`). Por isso o arquivo tem que ficar **na raiz**, com **este nome**, na **branch padrão**. Mudar o nome ou o lugar exige mudar `SERVER_LIST_URL` em `lib/marketplace.ts` na extensão e publicar uma nova versão.
 
 ## Formato
 
@@ -31,11 +31,11 @@ Um array JSON de URLs de pastas:
 
 1. Configure o servidor (veja [Requisitos do servidor](#requisitos-do-servidor)).
 2. Verifique que ele responde (veja [Conferir antes de subir](#conferir-antes-de-subir)).
-3. Adicione a URL ao `servers.json` e envie para a `main` (direto ou por pull request).
+3. Adicione a URL ao `servers.json` e envie para a branch padrão (direto ou por pull request).
 
 ## Remover um servidor
 
-Apague a URL do `servers.json` e envie para a `main`. Na próxima vez que o navegador abrir, o servidor some do marketplace de todos os usuários.
+Apague a URL do `servers.json` e envie para a branch padrão. Na próxima vez que o navegador abrir ou que o marketplace for aberto, o servidor some do marketplace de todos os usuários.
 
 Na extensão, servidores da lista não têm botão de remover: voltariam no próximo início. Remover é sempre por aqui.
 
@@ -106,4 +106,4 @@ python -m json.tool servers.json
 | `servers.json` inacessível ou inválido | Nada muda. |
 | Servidor que o usuário adicionou à mão | Nunca é tocado; se a mesma URL estiver na lista, passa a contar como da lista. |
 
-O GitHub guarda cópia do arquivo por cerca de 5 minutos: uma mudança recente pode levar esse tempo para chegar, e só é lida no próximo início do navegador.
+O GitHub guarda cópia do arquivo por cerca de 5 minutos: uma mudança recente pode levar esse tempo para chegar, e só é lida no próximo início do navegador ou abertura do marketplace.
